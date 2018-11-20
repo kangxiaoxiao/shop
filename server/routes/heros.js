@@ -38,7 +38,8 @@ router.get("/heroDetail",function(req,res,next){
         }
         res.json({
             status:"0",
-            hero:{...docs}[0]
+           // hero:{...docs}[0]
+            hero:docs
         })
     })
 });
