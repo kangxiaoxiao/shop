@@ -1,18 +1,14 @@
 {
   "apps":[
     {
-     "name"        : "worker",
-     "script"      : "app.js",
+     "name"        : "heroServe",
+     "script"      : "/server/bin/www",
       "env": {
         "COMMON_VARIABLE": "true"
       },
       "env_production" : {
         "NODE_ENV": "production"
       }
-    },
-    {
-      "name"       : "api-app",
-      "script"     : "api.js"
     }
   ],
   "deploy" : {
@@ -20,9 +16,12 @@
       "user" : "root",
       "host" : "39.105.67.28",
       "ref"  : "origin/master",
-      "repo" : "git@github.com:kangxiaoxiao/pm2_demo.git",
-      "path" : "/www/pm2_ex",
-      "post-deploy" : "pm2 startOrRestart ecosystem.json --env production"
+      "repo" : "git@github.com:kangxiaoxiao/hero_admin.git",
+      "path" : "/workspace/hero",
+      "post-deploy" : "npm install--registry=https://registry.npm.taobao.org  && pm2 startOrRestart ecosystem.json --env production",
+      "env":{
+        "NODE_ENV": "production"
+      }
     }
   }
 }

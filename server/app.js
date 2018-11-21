@@ -10,7 +10,13 @@ var herosRouter = require('./routes/heros');
 
 var mongoose=require("mongoose"); //kxx导入mongoose模块
 //kxx 连接数据库
-mongoose.connect("mongodb://localhost/shop_kxx");
+
+var env=process.env.NODE_ENV || "development";
+var dbUrl="mongodb://localhost/shop_kxx"; //线上的mongodb地址
+if(env==development){
+     dbUrl="mongodb://localhost/shop_kxx";
+}
+mongoose.connect(dbUrl);
 
 var app = express();
 
