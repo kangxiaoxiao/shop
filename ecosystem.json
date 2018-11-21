@@ -16,7 +16,7 @@
       "user" : "root",
       "host" : "39.105.67.28",
       "ref"  : "origin/master",
-      "repo" : "git@github.com:kangxiaoxiao/hero_admin.git",
+      "repo" : "git@github.com:kangxiaoxiao/shop.git",
       "path" : "/workspace/hero",
       "post-deploy" : "npm install--registry=https://registry.npm.taobao.org  && pm2 startOrRestart ecosystem.json --env production",
       "env":{
