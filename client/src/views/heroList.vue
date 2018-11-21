@@ -70,6 +70,7 @@
         mounted(){
             let _this=this;
             _this.img_headUrl=process.env.VUE_APP_IMG_HEAD_URL;
+            console.log("img_headUrl",_this.img_headUrl);
             _this.getHeroList();
         },
         methods:{

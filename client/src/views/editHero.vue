@@ -86,7 +86,8 @@
         mounted(){
           let _this=this;
           _this.id=_this.$route.query.id;
-          this.img_headUrl=process.env.VUE_APP_IMG_HEAD_URL;
+          _this.img_headUrl=process.env.VUE_APP_IMG_HEAD_URL;
+          console.log("img_headUrl",_this.img_headUrl);
           if(_this.id){
               _this.form.id="";
            _this.getHeroDetail();
