@@ -2,7 +2,7 @@
   "apps":[
     {
      "name"        : "heroServe",
-     "script"      : "./bin/www",
+     "script"      : "./server/bin/www",
       "cwd": "./",
       "env": {
         "COMMON_VARIABLE": "true"
