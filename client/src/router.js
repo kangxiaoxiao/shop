@@ -5,6 +5,7 @@ import heroList from './views/heroList.vue'
 import heroDetail from './views/heroDetail.vue'
 import editHero from './views/editHero.vue'
 import uploadImg from './views/uploadImg.vue'
+import NotFoundComponent from './views/404.vue'
 
 Vue.use(Router)
 
@@ -15,8 +16,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
+      name: 'heroList',
+      component: heroList
     },
     {
       path: '/about',
@@ -36,15 +37,16 @@ export default new Router({
         name: 'heroDetail',
         component: heroDetail
     },
-      {
+     {
           path: '/editHero',
           name: 'editHero',
           component: editHero
-      },
-      {
+     },
+     {
           path: '/uploadImg',
           name: 'uploadImg',
           component: uploadImg
-      },
+     },
+     { path: '*', component: NotFoundComponent }
   ]
 })
