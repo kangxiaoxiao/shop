@@ -171,7 +171,7 @@
             handleCurrentChange(val) {
                 console.log(`当前页: ${val}`);
                 this.pageInfo.currentPage=val;
-                this.getHeroList();
+                this.getHeroList(); 
             }
         }
     }
