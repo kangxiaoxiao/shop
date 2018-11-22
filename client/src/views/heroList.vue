@@ -171,7 +171,7 @@
             handleCurrentChange(val) {
                 console.log(`当前页: ${val}`);
                 this.pageInfo.currentPage=val;
-                this.getHeroList(); 
+                this.getHeroList();
             }
         }
     }
@@ -181,8 +181,8 @@
     .heroListWrapper{
         img{
             display:block;
-            width:100%;
-            height:auto;
+            width:auto;
+            height:100px;
         }
         .item{
             margin-bottom:15px;

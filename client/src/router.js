@@ -9,7 +9,8 @@ import uploadImg from './views/uploadImg.vue'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'hash',
+  mode: 'history',
+ // mode: 'hash',
   base: process.env.BASE_URL,
   routes: [
     {
