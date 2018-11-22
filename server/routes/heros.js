@@ -10,7 +10,44 @@ var upload = multer({ dest: 'uploads/' }); //文件存储的位置
 /* GET users listing. */
 router.get("/",function(req,res,next){
     //res.send("i'm hero page");
-    Heros.find({},function(err,docs){
+    var pageSize = +req.query.pageSize||5; //一页多少条
+    var currentPage = +req.query.currentPage||1; //当前第几页
+ //   var sort = {'logindate':-1};        //排序（按登录时间倒序）
+    var condition = {};                 //条件
+    var skipnum = +((currentPage - 1) * pageSize);   //跳过数
+    console.log("query",req.query);
+    console.log("pageSize",pageSize);
+    console.log("currentPage",currentPage);
+    console.log("skipnum",skipnum);
+    Heros.find(condition)
+         .skip(skipnum)
+         .limit(pageSize)
+         .exec((err,heros)=>{
+             if(err){
+                 res.json({
+                     status:"1",
+                     msg:err.message
+                 })
+             }
+             Heros.find((err1,result)=>{
+                 if(err1){
+                     res.json({
+                         status:"1",
+                         msg:err1.message
+                     })
+                 }
+                 res.json({
+                     status:"0",
+                     heros:heros,
+                     pageInfo:{
+                         total:result.length,
+                         pageSize:pageSize,
+                         currentPage:currentPage
+                     }
+                 })
+             });
+         })
+    /*Heros.find({},function(err,docs){
         if(err){
             res.json({
                status:"1",
@@ -21,7 +58,7 @@ router.get("/",function(req,res,next){
             status:"0",
             heros:docs,
         })
-    });
+    });*/
 });
 
 router.get("/heroDetail",function(req,res,next){

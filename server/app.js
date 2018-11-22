@@ -11,12 +11,24 @@ var herosRouter = require('./routes/heros');
 var mongoose=require("mongoose"); //kxx导入mongoose模块
 //kxx 连接数据库
 
-var env=process.env.NODE_ENV || "development";
+/*var env=process.env.NODE_ENV || "development";
 var dbUrl="mongodb://localhost/shop_kxx"; //线上的mongodb地址
-if(env==development){
+if(env=="development"){
      dbUrl="mongodb://localhost/shop_kxx";
 }
-mongoose.connect(dbUrl);
+mongoose.connect(dbUrl,{useNewUrlParser:true},function(err){
+    if(err){
+        console.log('Connection Error:' + err)
+    }else{
+        console.log('Connection success!') }
+});*/
+var dbUrl="mongodb://localhost/shop_kxx";
+mongoose.connect(dbUrl,{useNewUrlParser:true},function(err){
+    if(err){
+        console.log('Connection Error:' + err)
+    }else{
+        console.log('Connection success!') }
+});
 
 var app = express();
 

@@ -4,6 +4,7 @@
             <el-table
               v-if="herosList && herosList.length>0"
               :data="herosList"
+              v-loading="loading"
             >
                 <el-table-column type="index"></el-table-column>
                 <el-table-column
@@ -51,6 +52,18 @@
                 </el-table-column>
             </el-table>
         </el-col>
+        <el-col class="item pageWrapper">
+            <el-pagination
+                    background
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="pageInfo.currentPage"
+                    :page-sizes="pageInfo.pageSizes"
+                    :page-size="pageInfo.pageSize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="pageInfo.total">
+            </el-pagination>
+        </el-col>
         <el-col :span="24" class="item">
             <el-button @click="addHero">新增</el-button>
         </el-col>
@@ -63,8 +76,15 @@
         name: "heroList",
         data(){
             return{
+                loading:false,
                 herosList:[],
-                img_headUrl:""
+                img_headUrl:"",
+                pageInfo:{
+                    currentPage:1,
+                    pageSizes:[3, 10, 15, 20],
+                    pageSize:3,
+                    total:0
+                }
             }
         },
         mounted(){
@@ -76,10 +96,22 @@
         methods:{
             getHeroList(){
                 let _this=this;
-                axios.get("/heros").then(res=>{
+                _this.loading=true;
+                axios.get("/heros",{
+                    params:{
+                        currentPage:_this.pageInfo.currentPage,
+                        pageSize:_this.pageInfo.pageSize
+                    }
+                }).then(res=>{
+                    _this.loading=false;
                     if(res.data.status==0){
                         _this.herosList=res.data.heros;
+                        _this.pageInfo.currentPage=res.data.pageInfo.currentPage;
+                        _this.pageInfo.pageSize=res.data.pageInfo.pageSize;
+                        _this.pageInfo.total=res.data.pageInfo.total;
                     }
+                }).catch(err=>{
+                    _this.loading=false;
                 })
             },
             addHero(){
@@ -130,6 +162,16 @@
             addImg(row){
                 let _this=this;
                 _this.$router.push({path:"/uploadImg",query:{id:row._id}})
+            },
+            handleSizeChange(val) {
+                console.log(`每页 ${val} 条`);
+                this.pageInfo.pageSize=val;
+                this.getHeroList();
+            },
+            handleCurrentChange(val) {
+                console.log(`当前页: ${val}`);
+                this.pageInfo.currentPage=val;
+                this.getHeroList();
             }
         }
     }
@@ -144,6 +186,9 @@
         }
         .item{
             margin-bottom:15px;
+            &.pageWrapper{
+                text-align: right;
+            }
         }
     }
 </style>
